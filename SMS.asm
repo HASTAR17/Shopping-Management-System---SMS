@@ -57,11 +57,11 @@
 .CODE
 MAIN PROC
   
-                            MOV  AX, @DATA                  ; ACCESS .DATA
+                            MOV  AX, @DATA                  ;first we will  ACCESS .DATA
                             MOV  DS, AX
    
                                  
-                            LEA  DX, INTRO                  ; PRINT INTRO STRING
+                            LEA  DX, INTRO                  ; PRINT Welcome message STRING on intro variable
                             MOV  AH, 9
                             INT  21H
      
@@ -121,7 +121,7 @@ MAIN PROC
     ; VALIDATE USERNAME
                             MOV  SI, OFFSET USERNAME
                             MOV  DI, OFFSET INUSERNAME
-                            MOV  CX, 5                      ; LOOP ITERATION COUNT
+                            MOV  CX, 8                      ; LOOP ITERATION COUNT
     
     LOGINVALIDATIONUSERNAME:
                             MOV  BL, [SI]
@@ -415,13 +415,13 @@ INDEC3 ENDP                                                 ;END OF INDEC3
 
 OUTDEC PROC
     
-    ; Call DOS interrupt to print the number
+   
                             MOV  BX, 10                     ; Base = 10 (decimal)
                             MOV  CX, 0                      ; Clear CX
     PRINT_DECIMAL:          
                             MOV  DX, 0
                             DIV  BX                         ; Divide AX by 10
-                            PUSH DX                         ; Remainder (digit) on stack
+                            PUSH DX                         ; Remainder (digit) on stack cause it's word not byte
                             INC  CX                         ; Increment digit count
                             CMP  AX, 0
                             JNE  PRINT_DECIMAL
